@@ -1,4 +1,5 @@
-import { findUserByEmail } from "../models/user.model.js";
+import bcrypt from "bcryptjs";
+import { findUserByEmail, createUser } from "../models/user.model.js";
 
 export const signup = async (req, res) => {
   try {
