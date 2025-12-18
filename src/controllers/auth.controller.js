@@ -1,11 +1,9 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { createUser, findUserByEmail } from "../models/user.model.js";
-
 export const signup = async (req, res) => {
   try {
     const { firstName, lastName, gender, dateOfBirth, phone, email, password } =
       req.body;
+
+    console.log("Signup attempt for email:", email); // Debug log
 
     const existingUser = await findUserByEmail(email);
     if (existingUser) {
@@ -34,7 +32,11 @@ export const signup = async (req, res) => {
       user,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    console.error("Signup error:", error); // More detailed error log
+    console.error("Error stack:", error.stack); // Stack trace
+    res.status(500).json({
+      message: "Internal server error",
+      error: process.env.NODE_ENV === "development" ? error.message : undefined, // Show error in dev
+    });
   }
 };
