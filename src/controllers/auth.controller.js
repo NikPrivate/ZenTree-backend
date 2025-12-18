@@ -1,3 +1,5 @@
+import { findUserByEmail } from "../models/user.model.js";
+
 export const signup = async (req, res) => {
   try {
     const { firstName, lastName, gender, dateOfBirth, phone, email, password } =
